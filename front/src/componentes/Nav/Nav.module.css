@@ -1,0 +1,16 @@
+.nav{
+    position: relative;
+    width: 115%;
+    padding: 10px;
+}
+.botom{
+    position: absolute;
+    left: 90%;
+    top: 15%;
+}
+.search{
+    position: absolute;
+    width: 20%;
+    left: 70%;
+    top: 15%;
+}
