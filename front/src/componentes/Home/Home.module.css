@@ -1,0 +1,17 @@
+.imagen img{
+    height: 100%;
+    width: 100%;
+}
+.container{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+.oneDiv{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 300px;
+    width: 300px;
+}

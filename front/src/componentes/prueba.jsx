@@ -1,8 +1,10 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 
+
 function Login() {
   return (
+    <div>
     <Card>
       <Card.Body>
         <Card.Title>Título de la tarjeta</Card.Title>
@@ -12,6 +14,9 @@ function Login() {
         <Card.Link href="home">Enlace</Card.Link>
       </Card.Body>
     </Card>
+    <div>
+    </div>
+    </div>
   );
 }
 

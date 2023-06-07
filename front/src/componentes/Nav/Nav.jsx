@@ -1,11 +1,25 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { getSearchId, getSearchName } from "../../Redux/axions/axions";
 import { Navbar, Nav, Form, FormControl, Button, NavDropdown } from 'react-bootstrap';
 import styles from './Nav.module.css'
 
 const Navar = () => {
+const dispatch = useDispatch();
+
+const busqueda = (e) => {
+    const { value } = e.target
+    if(!isNaN(parseFloat(value))){
+      dispatch(getSearchId(value))
+    }else{
+      dispatch(getSearchName(value))
+    }
+    
+}
+
     return(
         <Navbar bg="dark" variant="dark" expand="lg" className={styles.nav}>
-          <Navbar.Brand href="#">Rick y Morty</Navbar.Brand>
+          <Navbar.Brand style={{ fontFamily: 'Caveat', fontSize: '35px', color: 'rgb(139, 248, 15)' }} >Rick y Morty</Navbar.Brand>
           {/* <Navbar.Toggle aria-controls="navbar-nav" /> */}
           <Navbar.Collapse id="navbar-nav" >
             <Nav>
@@ -17,9 +31,9 @@ const Navar = () => {
                 <NavDropdown.Item href="/" style={{ backgroundColor: 'red', color: 'white' }}>Logout</NavDropdown.Item>
               </NavDropdown>
             </Nav>
-            <Form inline>
-              <FormControl type="text" placeholder="Buscar" className={styles.search} />
-              <Button variant="outline-light" className={styles.botom} >Buscar</Button>
+            <Form>
+              <FormControl style={{ width: '200px', position: 'absolute', left: '68%', top: '25%'}} type="buton" placeholder="Search" onChange={busqueda} />
+              <Button variant="outline-light" style={{ position: 'absolute', left: '81.5%', top: '25%' }} onClick={() => busqueda()} >Search</Button>
             </Form>
           </Navbar.Collapse>
         </Navbar>
