@@ -3,6 +3,7 @@ export const GET_ALL_CHARACTERS = "GET_ALL_CHARACTERS";
 export const GET_SEARCH_NAME = "GET_SEARCH_NAME";
 export const GET_SEARCH_ID = "GET_SEARCH_ID";
 export const SET_LOADING = "SET_LOADING";
+export const GET_GENDER = "GET_GENDER";
 
 export const setLoading = (isLoading) => {
   return{
@@ -11,10 +12,10 @@ export const setLoading = (isLoading) => {
   };
 };
 
-export function getAllCharacters(page) {
+export function getAllCharacters() {
     return (dispatch) => {
       dispatch(setLoading(true))
-      axios.get(`http://localhost:3001/characters?${page}`).then((response) => {
+      axios.get(`http://localhost:3001/characters`).then((response) => {
         dispatch({
           type: GET_ALL_CHARACTERS,
           payload: response.data,
@@ -56,4 +57,19 @@ export function getSearchName(name) {
       })
       .catch(error => console.log(error.message))
     };
+}
+
+export function getGender (gender) {
+  return (dispatch) => {
+    dispatch(setLoading(true))
+    axios.get(`http://localhost:3001/characters/filter/gender?gender=${gender}`)
+    .then((response) => {
+      dispatch({
+        type: GET_GENDER,
+        payload: response.data,
+      })
+      dispatch(setLoading(false))
+    })
+    .catch(error => console.log(error.message))
+  }
 }

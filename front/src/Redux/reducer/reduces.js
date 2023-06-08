@@ -1,4 +1,9 @@
-import { GET_ALL_CHARACTERS, GET_SEARCH_ID, GET_SEARCH_NAME, SET_LOADING } from '../axions/axions'
+import { GET_ALL_CHARACTERS, 
+         GET_SEARCH_ID, 
+         GET_SEARCH_NAME, 
+         SET_LOADING,
+         GET_GENDER
+} from '../axions/axions'
 
 const storeCharacters = {
     allCharacters: [],
@@ -27,6 +32,11 @@ const rootReducer = (state = storeCharacters, { type, payload }) => {
                 ...state,
                 allCharacters : payload
             };
+        case GET_GENDER:
+            return {
+                ...state,
+                allCharacters: payload
+            }
         default:
             return { ...state };
     }

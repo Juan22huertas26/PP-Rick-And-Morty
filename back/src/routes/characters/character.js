@@ -6,35 +6,24 @@ const { Op } = require('sequelize')
 
 characterRoute.get('/', async (req, res) => {
     try {
-      const { name, page } = req.query;
-      const pageNumber = parseInt(page, 10) || 1; // Página actual (predeterminada: 1)
-      const pageSize = 3; // Tamaño de la página (predeterminado: 10)
-      const offset = (pageNumber - 1) * pageSize; // Cálculo del desplazamiento para la consulta
-  
+      const { name } = req.query;
       if (name) {
-        const { count, rows } = await Characters.findAndCountAll({
+        const characters = await Characters.findAll({
           where: { name: { [Op.iLike]: `%${name}%` } },
-          offset,
-          limit: pageSize
         });
   
-        if (count === 0) {
+        if (!characters) {
           res.status(404).json({ message: 'Character not found' });
         } else {
-          const totalPages = Math.ceil(count / pageSize);
-          res.status(200).json({ count, totalPages, currentPage: pageNumber, characters: rows });
+          res.status(200).json(characters);
         }
       } else {
-        const { count, rows } = await Characters.findAndCountAll({
-          offset,
-          limit: pageSize
-        });
+        const characters = await Characters.findAll();
   
-        if (count === 0) {
+        if (!characters) {
           res.status(404).json({ message: 'Characters not found' });
         } else {
-          const totalPages = Math.ceil(count / pageSize);
-          res.status(200).json({ count, totalPages, currentPage: pageNumber, characters: rows });
+          res.status(200).json(characters);
         }
       }
     } catch (error) {
@@ -59,6 +48,23 @@ characterRoute.get('/:id', async (req, res) => {
     } catch (error) {
         console.log(error.message);
     }
+})
+characterRoute.get('/filter/gender', async (req, res) => {
+  try {
+    const { gender } = req.query;
+    if (gender === 'todos') {
+      const characters = await Characters.findAll()
+      res.status(200).json(characters)
+    }else{
+      const characters = await Characters.findAll({where:{gender}})
+      if(!characters){
+        res.status(404).json({message: 'Character not found'})
+      }
+      res.status(200).json(characters)
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
 })
 
 module.exports = characterRoute;
